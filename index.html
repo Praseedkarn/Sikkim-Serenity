@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monastery360 - Discover Sikkim's Sacred Heritage</title>
+    <meta name="description" content="Explore Sikkim's 200+ monasteries through immersive 360° virtual tours, digital archives, and cultural experiences.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Pannellum for 360° viewer -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
+    <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    
+    <!-- Leaflet for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="hi">हि</button>
+        <button class="lang-btn" data-lang="ne">ने</button>
+        <button class="lang-btn" data-lang="dz">ཇོ</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/logo.png" alt="Monastery360" class="logo">
+                <span class="brand-name">Monastery360</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link" data-translate="nav.home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#virtual-tours" class="nav-link" data-translate="nav.tours">Virtual Tours</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#map" class="nav-link" data-translate="nav.map">Interactive Map</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#archives" class="nav-link" data-translate="nav.archives">Digital Archives</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#calendar" class="nav-link" data-translate="nav.calendar">Cultural Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#audio-guide" class="nav-link" data-translate="nav.audio">Audio Guide</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#community" class="nav-link" data-translate="nav.community">Community</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#tourism" class="nav-link" data-translate="nav.tourism">Tourism</a>
+                </li>
+            </ul>
+            
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title" data-translate="hero.title">Discover Sikkim's Sacred Heritage</h1>
+                <p class="hero-subtitle" data-translate="hero.subtitle">Explore 200+ monasteries through immersive 360° virtual tours and preserve centuries of Buddhist culture</p>
+                
+                <div class="hero-cta">
+                    <button class="btn btn-primary" data-translate="hero.explore">Explore Virtual Tours</button>
+                    <button class="btn btn-secondary" data-translate="hero.events">Discover Events</button>
+                    <button class="btn btn-outline" data-translate="hero.plan">Plan Your Visit</button>
+                </div>
+            </div>
+            
+            <!-- 360° Panoramic Viewer -->
+            <div class="panorama-container">
+                <div id="panorama" class="panorama-viewer"></div>
+                <div class="panorama-controls">
+                    <button class="control-btn" id="fullscreen-btn">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button class="control-btn" id="vr-btn">
+                        <i class="fas fa-vr-cardboard"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Virtual Tours Section -->
+    <section id="virtual-tours" class="virtual-tours">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="tours.title">Immersive Virtual Tours</h2>
+                <p class="section-subtitle" data-translate="tours.subtitle">Experience monasteries in 360° with narrated walkthroughs in multiple languages</p>
+            </div>
+            
+            <div class="tours-grid">
+                <div class="tour-card featured">
+                    <div class="tour-image">
+                        <div class="panorama-preview" data-panorama="rumtek-monastery.jpg">
+                            <div class="play-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="tour-badge">Featured</div>
+                    </div>
+                    <div class="tour-content">
+                        <h3 class="tour-title" data-translate="tours.rumtek.title">Rumtek Monastery</h3>
+                        <p class="tour-description" data-translate="tours.rumtek.description">The largest monastery in Sikkim, home to the Golden Stupa</p>
+                        <div class="tour-languages">
+                            <span class="lang-tag">English</span>
+                            <span class="lang-tag">हिन्दी</span>
+                            <span class="lang-tag">नेपाली</span>
+                            <span class="lang-tag">ཇོང་ཁ</span>
+                        </div>
+                        <button class="btn btn-primary tour-btn" data-translate="tours.start">Start Tour</button>
+                    </div>
+                </div>
+                
+                <div class="tour-card">
+                    <div class="tour-image">
+                        <div class="panorama-preview" data-panorama="pemayangtse.jpg">
+                            <div class="play-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-content">
+                        <h3 class="tour-title" data-translate="tours.pemayangtse.title">Pemayangtse Monastery</h3>
+                        <p class="tour-description" data-translate="tours.pemayangtse.description">One of the oldest monasteries with stunning mountain views</p>
+                        <div class="tour-languages">
+                            <span class="lang-tag">English</span>
+                            <span class="lang-tag">हिन्दी</span>
+                        </div>
+                        <button class="btn btn-primary tour-btn" data-translate="tours.start">Start Tour</button>
+                    </div>
+                </div>
+                
+                <div class="tour-card">
+                    <div class="tour-image">
+                        <div class="panorama-preview" data-panorama="tashiding.jpg">
+                            <div class="play-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-content">
+                        <h3 class="tour-title" data-translate="tours.tashiding.title">Tashiding Monastery</h3>
+                        <p class="tour-description" data-translate="tours.tashiding.description">Sacred monastery known for its annual Bumchu festival</p>
+                        <div class="tour-languages">
+                            <span class="lang-tag">English</span>
+                            <span class="lang-tag">नेपाली</span>
+                        </div>
+                        <button class="btn btn-primary tour-btn" data-translate="tours.start">Start Tour</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tours-cta">
+                <button class="btn btn-outline" data-translate="tours.viewAll">View All 200+ Monasteries</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Map Section -->
+    <section id="map" class="interactive-map">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="map.title">Explore Monastery Locations</h2>
+                <p class="section-subtitle" data-translate="map.subtitle">Discover monasteries across Sikkim with detailed information and travel routes</p>
+            </div>
+            
+            <div class="map-container">
+                <div class="map-filters">
+                    <div class="filter-group">
+                        <label data-translate="map.filter.region">Region:</label>
+                        <select id="region-filter">
+                            <option value="all" data-translate="map.filter.all">All Regions</option>
+                            <option value="east" data-translate="map.filter.east">East Sikkim</option>
+                            <option value="west" data-translate="map.filter.west">West Sikkim</option>
+                            <option value="north" data-translate="map.filter.north">North Sikkim</option>
+                            <option value="south" data-translate="map.filter.south">South Sikkim</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label data-translate="map.filter.type">Monastery Type:</label>
+                        <select id="type-filter">
+                            <option value="all" data-translate="map.filter.allTypes">All Types</option>
+                            <option value="nyingma" data-translate="map.filter.nyingma">Nyingma</option>
+                            <option value="kagyu" data-translate="map.filter.kagyu">Kagyu</option>
+                            <option value="sakya" data-translate="map.filter.sakya">Sakya</option>
+                            <option value="gelug" data-translate="map.filter.gelug">Gelug</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label data-translate="map.filter.amenities">Amenities:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" value="parking"> <span data-translate="map.amenities.parking">Parking</span></label>
+                            <label><input type="checkbox" value="food"> <span data-translate="map.amenities.food">Food</span></label>
+                            <label><input type="checkbox" value="accommodation"> <span data-translate="map.amenities.accommodation">Accommodation</span></label>
+                            <label><input type="checkbox" value="guided-tours"> <span data-translate="map.amenities.guided">Guided Tours</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="monastery-map" class="map-view"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Digital Archives Section -->
+    <section id="archives" class="digital-archives">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="archives.title">Digital Archives</h2>
+                <p class="section-subtitle" data-translate="archives.subtitle">Explore centuries of Buddhist manuscripts, murals, and cultural artifacts</p>
+            </div>
+            
+            <div class="archives-search">
+                <div class="search-container">
+                    <input type="text" id="archive-search" placeholder="Search manuscripts, murals, documents..." data-translate="archives.search.placeholder">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <div class="search-filters">
+                    <button class="filter-btn active" data-category="all" data-translate="archives.filter.all">All</button>
+                    <button class="filter-btn" data-category="manuscripts" data-translate="archives.filter.manuscripts">Manuscripts</button>
+                    <button class="filter-btn" data-category="murals" data-translate="archives.filter.murals">Murals</button>
+                    <button class="filter-btn" data-category="documents" data-translate="archives.filter.documents">Documents</button>
+                    <button class="filter-btn" data-category="artifacts" data-translate="archives.filter.artifacts">Artifacts</button>
+                </div>
+            </div>
+            
+            <div class="archives-grid">
+                <div class="archive-item" data-category="manuscripts">
+                    <div class="archive-image">
+                        <img src="assets/archives/manuscript-1.jpg" alt="Ancient Buddhist Manuscript">
+                        <div class="archive-overlay">
+                            <button class="view-btn">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="archive-content">
+                        <h3 class="archive-title">Tibetan Buddhist Sutra</h3>
+                        <p class="archive-description">17th century manuscript from Rumtek Monastery</p>
+                        <div class="archive-meta">
+                            <span class="archive-date">1650 CE</span>
+                            <span class="archive-monastery">Rumtek</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="archive-item" data-category="murals">
+                    <div class="archive-image">
+                        <img src="assets/archives/mural-1.jpg" alt="Buddhist Mural">
+                        <div class="archive-overlay">
+                            <button class="view-btn">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="archive-content">
+                        <h3 class="archive-title">Thangka Painting</h3>
+                        <p class="archive-description">Traditional Buddhist thangka from Pemayangtse</p>
+                        <div class="archive-meta">
+                            <span class="archive-date">18th century</span>
+                            <span class="archive-monastery">Pemayangtse</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="archive-item" data-category="documents">
+                    <div class="archive-image">
+                        <img src="assets/archives/document-1.jpg" alt="Historical Document">
+                        <div class="archive-overlay">
+                            <button class="view-btn">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="archive-content">
+                        <h3 class="archive-title">Monastery Charter</h3>
+                        <p class="archive-description">Royal decree establishing Tashiding Monastery</p>
+                        <div class="archive-meta">
+                            <span class="archive-date">1642 CE</span>
+                            <span class="archive-monastery">Tashiding</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cultural Calendar Section -->
+    <section id="calendar" class="cultural-calendar">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="calendar.title">Cultural Calendar</h2>
+                <p class="section-subtitle" data-translate="calendar.subtitle">Discover monastery events, festivals, and rituals throughout the year</p>
+            </div>
+            
+            <div class="calendar-container">
+                <div class="calendar-filters">
+                    <div class="month-navigation">
+                        <button class="nav-btn" id="prev-month">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 class="current-month" id="current-month">January 2024</h3>
+                        <button class="nav-btn" id="next-month">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="event-filters">
+                        <button class="filter-btn active" data-type="all" data-translate="calendar.filter.all">All Events</button>
+                        <button class="filter-btn" data-type="festival" data-translate="calendar.filter.festivals">Festivals</button>
+                        <button class="filter-btn" data-type="ritual" data-translate="calendar.filter.rituals">Rituals</button>
+                        <button class="filter-btn" data-type="ceremony" data-translate="calendar.filter.ceremonies">Ceremonies</button>
+                    </div>
+                </div>
+                
+                <div class="calendar-grid" id="calendar-grid">
+                    <!-- Calendar will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="featured-events">
+                <h3 class="featured-title" data-translate="calendar.featured">Featured Events</h3>
+                <div class="events-list">
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="day">15</span>
+                            <span class="month">Jan</span>
+                        </div>
+                        <div class="event-content">
+                            <h4 class="event-title" data-translate="calendar.bumchu.title">Bumchu Festival</h4>
+                            <p class="event-description" data-translate="calendar.bumchu.description">Sacred water ceremony at Tashiding Monastery</p>
+                            <div class="event-meta">
+                                <span class="event-location">Tashiding Monastery</span>
+                                <span class="event-time">6:00 AM - 6:00 PM</span>
+                            </div>
+                            <button class="btn btn-primary event-btn" data-translate="calendar.book">Book Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="day">22</span>
+                            <span class="month">Jan</span>
+                        </div>
+                        <div class="event-content">
+                            <h4 class="event-title" data-translate="calendar.losar.title">Losar Festival</h4>
+                            <p class="event-description" data-translate="calendar.losar.description">Tibetan New Year celebrations across monasteries</p>
+                            <div class="event-meta">
+                                <span class="event-location">All Monasteries</span>
+                                <span class="event-time">All Day</span>
+                            </div>
+                            <button class="btn btn-primary event-btn" data-translate="calendar.book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smart Audio Guide Section -->
+    <section id="audio-guide" class="audio-guide">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="audio.title">Smart Audio Guide</h2>
+                <p class="section-subtitle" data-translate="audio.subtitle">Download offline audio guides with GPS and Bluetooth integration</p>
+            </div>
+            
+            <div class="audio-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3 class="feature-title" data-translate="audio.offline.title">Offline Access</h3>
+                    <p class="feature-description" data-translate="audio.offline.description">Download guides for offline use in remote monastery locations</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="feature-title" data-translate="audio.gps.title">GPS Integration</h3>
+                    <p class="feature-description" data-translate="audio.gps.description">Automatic audio triggers based on your location</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bluetooth"></i>
+                    </div>
+                    <h3 class="feature-title" data-translate="audio.bluetooth.title">Bluetooth Beacons</h3>
+                    <p class="feature-description" data-translate="audio.bluetooth.description">Enhanced experience with beacon-triggered content</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="feature-title" data-translate="audio.multilingual.title">Multilingual</h3>
+                    <p class="feature-description" data-translate="audio.multilingual.description">Available in English, Hindi, Nepali, and Dzongkha</p>
+                </div>
+            </div>
+            
+            <div class="download-section">
+                <h3 class="download-title" data-translate="audio.download.title">Download Audio Guides</h3>
+                <div class="guide-list">
+                    <div class="guide-item">
+                        <div class="guide-info">
+                            <h4 class="guide-name" data-translate="audio.guides.rumtek">Rumtek Monastery Guide</h4>
+                            <p class="guide-duration">45 minutes • 15 MB</p>
+                        </div>
+                        <div class="guide-actions">
+                            <button class="btn btn-outline" data-translate="audio.preview">Preview</button>
+                            <button class="btn btn-primary" data-translate="audio.download">Download</button>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-item">
+                        <div class="guide-info">
+                            <h4 class="guide-name" data-translate="audio.guides.pemayangtse">Pemayangtse Monastery Guide</h4>
+                            <p class="guide-duration">30 minutes • 12 MB</p>
+                        </div>
+                        <div class="guide-actions">
+                            <button class="btn btn-outline" data-translate="audio.preview">Preview</button>
+                            <button class="btn btn-primary" data-translate="audio.download">Download</button>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-item">
+                        <div class="guide-info">
+                            <h4 class="guide-name" data-translate="audio.guides.complete">Complete Sikkim Guide</h4>
+                            <p class="guide-duration">3 hours • 120 MB</p>
+                        </div>
+                        <div class="guide-actions">
+                            <button class="btn btn-outline" data-translate="audio.preview">Preview</button>
+                            <button class="btn btn-primary" data-translate="audio.download">Download</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="community.title">Community Stories</h2>
+                <p class="section-subtitle" data-translate="community.subtitle">Share your monastery experiences and contribute to cultural preservation</p>
+            </div>
+            
+            <div class="community-content">
+                <div class="story-form">
+                    <h3 class="form-title" data-translate="community.share.title">Share Your Story</h3>
+                    <form id="story-form">
+                        <div class="form-group">
+                            <label for="story-title" data-translate="community.share.titleLabel">Story Title</label>
+                            <input type="text" id="story-title" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="story-monastery" data-translate="community.share.monasteryLabel">Monastery</label>
+                            <select id="story-monastery" required>
+                                <option value="">Select Monastery</option>
+                                <option value="rumtek">Rumtek Monastery</option>
+                                <option value="pemayangtse">Pemayangtse Monastery</option>
+                                <option value="tashiding">Tashiding Monastery</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="story-content" data-translate="community.share.contentLabel">Your Story</label>
+                            <textarea id="story-content" rows="5" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="story-photos" data-translate="community.share.photosLabel">Photos (Optional)</label>
+                            <input type="file" id="story-photos" multiple accept="image/*">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" data-translate="community.share.submit">Submit Story</button>
+                    </form>
+                </div>
+                
+                <div class="stories-list">
+                    <h3 class="stories-title" data-translate="community.stories.title">Recent Stories</h3>
+                    
+                    <div class="story-card">
+                        <div class="story-header">
+                            <h4 class="story-title">A Spiritual Journey to Rumtek</h4>
+                            <span class="story-author">by Rajesh Kumar</span>
+                        </div>
+                        <p class="story-preview">My visit to Rumtek Monastery was a transformative experience. The golden stupa and the peaceful atmosphere...</p>
+                        <div class="story-meta">
+                            <span class="story-date">2 days ago</span>
+                            <span class="story-monastery">Rumtek Monastery</span>
+                        </div>
+                    </div>
+                    
+                    <div class="story-card">
+                        <div class="story-header">
+                            <h4 class="story-title">Festival of Lights at Pemayangtse</h4>
+                            <span class="story-author">by Sarah Johnson</span>
+                        </div>
+                        <p class="story-preview">The Losar celebrations at Pemayangtse were absolutely magical. The traditional dances and rituals...</p>
+                        <div class="story-meta">
+                            <span class="story-date">1 week ago</span>
+                            <span class="story-monastery">Pemayangtse Monastery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tourism Integration Section -->
+    <section id="tourism" class="tourism">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="tourism.title">Plan Your Visit</h2>
+                <p class="section-subtitle" data-translate="tourism.subtitle">Book transportation, guided tours, and accommodation for your monastery journey</p>
+            </div>
+            
+            <div class="tourism-services">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <h3 class="service-title" data-translate="tourism.transport.title">Transportation</h3>
+                    <p class="service-description" data-translate="tourism.transport.description">Book buses, taxis, and private vehicles to monastery locations</p>
+                    <ul class="service-features">
+                        <li data-translate="tourism.transport.feature1">Airport transfers</li>
+                        <li data-translate="tourism.transport.feature2">Monastery circuit tours</li>
+                        <li data-translate="tourism.transport.feature3">Private guided transport</li>
+                    </ul>
+                    <button class="btn btn-primary" data-translate="tourism.book">Book Now</button>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="service-title" data-translate="tourism.guides.title">Guided Tours</h3>
+                    <p class="service-description" data-translate="tourism.guides.description">Expert local guides for authentic monastery experiences</p>
+                    <ul class="service-features">
+                        <li data-translate="tourism.guides.feature1">Certified local guides</li>
+                        <li data-translate="tourism.guides.feature2">Cultural interpretation</li>
+                        <li data-translate="tourism.guides.feature3">Small group tours</li>
+                    </ul>
+                    <button class="btn btn-primary" data-translate="tourism.book">Book Now</button>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <h3 class="service-title" data-translate="tourism.accommodation.title">Accommodation</h3>
+                    <p class="service-description" data-translate="tourism.accommodation.description">Stay near monasteries with local hospitality</p>
+                    <ul class="service-features">
+                        <li data-translate="tourism.accommodation.feature1">Monastery guest houses</li>
+                        <li data-translate="tourism.accommodation.feature2">Local homestays</li>
+                        <li data-translate="tourism.accommodation.feature3">Hotels near monasteries</li>
+                    </ul>
+                    <button class="btn btn-primary" data-translate="tourism.book">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 class="footer-title" data-translate="footer.about.title">About Monastery360</h4>
+                    <p class="footer-description" data-translate="footer.about.description">Preserving Sikkim's Buddhist heritage through digital innovation and cultural tourism.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title" data-translate="footer.links.title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#virtual-tours" data-translate="footer.links.tours">Virtual Tours</a></li>
+                        <li><a href="#map" data-translate="footer.links.map">Interactive Map</a></li>
+                        <li><a href="#archives" data-translate="footer.links.archives">Digital Archives</a></li>
+                        <li><a href="#calendar" data-translate="footer.links.calendar">Cultural Calendar</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title" data-translate="footer.contact.title">Contact</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> info@monastery360.com</p>
+                        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Gangtok, Sikkim, India</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title" data-translate="footer.social.title">Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright" data-translate="footer.copyright">© 2024 Monastery360. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#" data-translate="footer.privacy">Privacy Policy</a>
+                    <a href="#" data-translate="footer.terms">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/panorama.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/translations.js"></script>
+</body>
+</html>
